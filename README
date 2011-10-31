@@ -1,0 +1,60 @@
+MeinPivot - generate Pivot tables with unlimited number of Pivoting fields.
+
+This class was inspired by the great gam-pivot php class made by Gonzalo Ayuso (gonzalo123), that can be found in GitHub:
+
+https://github.com/gonzalo123/gam-pivot
+ 
+The main purpose of making a new class was to make possible the pivoting of columns to an unlimited amount of rows and provide caching of output results using your favourite caching mechanism (i.e. Memcached, filesystem, etc.)
+
+License: BSD 2-Clause License
+
+
+
+Usage:
+
+<code>
+<?php
+
+// Take a MySQL resultset with associative arrays
+$result = array(
+		array('BlogName' => 'SuicideBooth','Location'=>'Portugal','Age'=>'18'
+			,'Gender'=>'M','Visits'=>10,'Pageviews'=>16,'Hits'=>2),
+		array('BlogName' => 'SuicideBooth','Location'=>'Portugal','Age'=>'21'
+			,'Gender'=>'M','Visits'=>8,'Pageviews'=>10,'Hits'=>3)
+	);
+
+// specify Column, Row and Metric fields
+$columns = array('Age','Gender');
+$rows = array('BlogName','Location');
+$measures = array('Visits','Pageviews','Hits');
+
+// create a new MeinPivot instance with the resultset and defined fields
+$pivot = new MeinPivot($result,$columns,$rows,$measures);
+
+// request a new pivoted resultset
+$out = $pivot->get();
+		
+print("output: "); 
+print_r($out);
+	
+?>
+</code>
+
+The result will look something like this:
+<code>
+output: Array
+(
+    [0] => Array
+        (
+            [BlogName] => SuicideBooth
+            [Location] => Portugal
+            [18 | M | Visits] => 10
+            [18 | M | Pageviews] => 16
+            [18 | M | Hits] => 2
+            [21 | M | Visits] => 8
+            [21 | M | Pageviews] => 10
+            [21 | M | Hits] => 3
+        )
+
+)
+</code>

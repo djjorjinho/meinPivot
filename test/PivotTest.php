@@ -24,7 +24,7 @@ class MeinPivotTest extends PHPUnit_TestCase{
 		    array('host' => 'host1', 'country' => 'es', 'year' => 2010,
 		        'month' => 2, 'clicks' => 234, 'users' => 5),
 		
-		    array('host' => 1, 'country' => 'es', 'year' => 2010,
+		    array('host' => 'host1', 'country' => 'es', 'year' => 2010,
 		        'month' => 3, 'clicks' => 421, 'users' => 2),
 		
 		    array('host' => 'host1', 'country' => 'es', 'year' => 2010,
