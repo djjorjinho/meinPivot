@@ -12,7 +12,7 @@ License: BSD 2-Clause License
 
 Usage:
 
-<pre>
+"""
 <?php
 
 // Take a MySQL resultset with associative arrays
@@ -38,10 +38,11 @@ print("output: ");
 print_r($out);
 	
 ?>
-</pre>
+"""
 
 The result will look something like this:
-<pre>
+
+"""
 output: Array
 (
     [0] => Array
@@ -57,4 +58,4 @@ output: Array
         )
 
 )
-</pre>
+"""
