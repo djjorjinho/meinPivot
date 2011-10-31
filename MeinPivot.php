@@ -11,6 +11,7 @@
  * columns to unlimited rows and provide caching of output results 
  * using your favourite caching mechanism (i.e. Memcached, filesystem, etc.)
  * 
+ * Website: https://github.com/djjorjinho/meinPivot
  * License: BSD 2-Clause License
  */
 class MeinPivot{
