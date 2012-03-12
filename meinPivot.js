@@ -20,7 +20,7 @@ var defaults = {
  * Constructor. Takes options and thats pretty much it.
  */
 var meinPivot = function(options){
-	this.options = $.extend(defaults,options);
+	this.options = $.extend({},defaults,options);
 };
 
 meinPivot.prototype = {
@@ -93,7 +93,7 @@ meinPivot.prototype = {
 		
 		var tmp,tmpCount,splits;
 		var ref,sref;
-		tmp = tmpCount = splits = [];
+		tmp = tmpCount = splits = {};
 		
 		$.each(options.data,function(i,item){
 			
@@ -104,18 +104,18 @@ meinPivot.prototype = {
 				// assigning row split keys
 				$.each(options.rows,function(r,row){
 					var rowKey = item[options.rows[r]];
-					ref[rowKey] = ref[rowKey] || [];
+					ref[rowKey] = ref[rowKey] || {};
 					ref = ref[rowKey];
 				});
 				
 				// assigning column split keys
 				$.each(options.columns,function(c,column){
 					var columnKey = item[column];
-					ref[columnKey] = ref[columnKey] || [];
+					ref[columnKey] = ref[columnKey] || {};
 					ref = ref[columnKey];
 					
 					// only column splits assoc. array
-					sref[columnKey] = sref[columnKey] || [];
+					sref[columnKey] = sref[columnKey] || {};
 					sref = sref[columnKey];
 				});
 				
@@ -141,6 +141,7 @@ meinPivot.prototype = {
 		var columns = options.columns;
 		var rows = options.rows;
 		var measures = options.measures;
+		var concat = options.concatString;
 		var ckey = columns.length+':'+rows.length+':'+measures.length;
 		var out = [];
 		var func;
@@ -152,8 +153,60 @@ meinPivot.prototype = {
 		
 		var code = 'func = {exec:function(out,columns,rows,measures,tmp,splits){';
 		
-		code += 'return splits;';
+		// open rows
+		$.each(rows,function(r,row){
+			if(r==0)
+				code += "$.each(tmp,function(p"+r+",p"+r+"Values){";
+			else
+				code += "$.each(p"+(r-1)+"Values,function(p"+r+",p"+r+"Values){";
+		});
 		
+		// variables
+		code += "var _out = {};";
+		$.each(rows,function(r,row){
+			code += "_out[rows["+r+"]] = p"+r+";";
+		});
+		
+		var _aux = [];
+		// open columns
+		$.each(columns,function(c,column){
+			if(c==0){
+				code += "$.each(splits,function(s0){";
+				code += "var spl0 = splits[s0];";
+				code += "var colValues = p"+(rows.length-1)+"Values;";
+			}else{
+				var i = c-1;
+				code += "$.each(spl"+i+",function(s"+c+"){";
+				code += "var spl"+c+" = spl"+i+"[s"+c+"];";
+			}
+			_aux.push('s'+c);
+		});
+		
+		var arraux = '['+_aux.join('][')+']';
+		
+		// open measures
+		code += "$.each(measures,function(m,measure){";
+		code += "var value;";
+		code += "try{ value = colValues"+arraux+"[measure] || '';}";
+		code += "catch(err){value='';};";
+		code += "_out["+_aux.join("+'"+concat+"'+")+"+'"+concat+"'+measure] = value;";
+		
+		// close measures
+		code += "});";
+		
+		// close columns
+		$.each(columns,function(c,column){
+			code += "});";
+		});
+		
+		code += "out.push(_out);";
+		
+		// close rows
+		$.each(rows,function(r,row){
+			code += "});";
+		});
+		
+		code += "return out;";
 		code += '}};';
 		
 		eval(code);
@@ -162,15 +215,6 @@ meinPivot.prototype = {
 		options.funcCache[ckey] = func;
 		
 		return func.exec(out,columns,rows,measures,tmp,splits);
-	},
-	
-	/**
-	 * Concatenate field names using a predefined string.
-	 */
-	concatFields: function(){
-		var self = this;
-		return $(arguments).toArray()
-				.join(self.options.concatString);
 	}
 };
 
@@ -180,7 +224,7 @@ meinPivot.prototype = {
  *
  */
 $.meinPivot = function(options){
-	var mp = new meinPivot(options);
+	return new meinPivot(options);
 };
 
 /**

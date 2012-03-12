@@ -3,11 +3,14 @@
 
 $sep = DIRECTORY_SEPARATOR;
 
+$path = '/Users/daniel/pear/share/pear/';
+set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+
 require_once 'PHPUnit.php';
-require_once("..${sep}MeinPivot.php");
+require_once(dirname(__FILE__)."/..${sep}MeinPivot.php");
 
 class MeinPivotTest extends PHPUnit_TestCase{
-	private $supress_out = true;
+	private $supress_out = false;
 	
 	private $result1 = array(
 		    array('host' => 'host1', 'country' => 'fr', 'year' => 2010,
@@ -57,7 +60,7 @@ class MeinPivotTest extends PHPUnit_TestCase{
         parent::PHPUnit_TestCase($name);
     }
     
-    function atestPivot1(){
+    function testPivot1(){
 		
     	$columns = array('year','month');
     	$rows = array('country','host');
@@ -75,7 +78,7 @@ class MeinPivotTest extends PHPUnit_TestCase{
 		$this->assertTrue(is_array($out));
     }
 	
-	function testPivot2(){
+	function atestPivot2(){
 		
     	$columns = array('year','month','host');
     	$rows = array('country','host','Location');

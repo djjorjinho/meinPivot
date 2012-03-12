@@ -22,6 +22,9 @@ foreach ($tmp as $p0 => $p0Values) {
 }
 return $out;
 
+javascript:
+
+
 /** 2x2x2 */
 foreach ($tmp as $p0 => $p0Values) {
 	foreach ($p0Values as $p1 => $p1Values){

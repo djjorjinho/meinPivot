@@ -108,7 +108,52 @@ jQuery(document).ready(function(){
 		//destroyTable:true,
 		tableContainer:'#container'
 	});
-	console.log(mp.getPivot());
+	var tmp = mp.getPivot();
+	console.log(JSON.stringify(tmp));
+	
+	var result1 = [
+		    {'host' : 'host1', 'country' : 'fr', 'year' : 2010,
+		        'month' : 'Jan', 'clicks' : 123, 'users' : 4},
+		
+		    {'host' : 'host1', 'country' : 'fr', 'year' : 2010,
+		        'month' : 'Fev', 'clicks' : 134, 'users' : 5},
+		
+		    {'host' : 'host1', 'country' : 'fr', 'year' : 2010,
+		        'month' : 'Mar', 'clicks' : 341, 'users' : 2},
+		
+		    {'host' : 'host1', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Jan', 'clicks' : 113, 'users' : 4},
+		
+		    {'host' : 'host1', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Fev', 'clicks' : 234, 'users' : 5},
+		
+		    {'host' : 'host1', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Mar', 'clicks' : 421, 'users' : 2},
+		
+		    {'host' : 'host1', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Apr', 'clicks' : 22,  'users' : 3},
+		
+		    {'host' : 'host2', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Jan', 'clicks' : 111, 'users' : 2},
+		
+		    {'host' : 'host2', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Fev', 'clicks' : 2,   'users' : 4},
+		
+		    {'host' : 'host3', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Mar', 'clicks' : 34,  'users' : 2},
+		
+		    {'host' : 'host3', 'country' : 'es', 'year' : 2010,
+		        'month' : 'Apr', 'clicks' : 1,   'users' : 1},
+	];
+	
+	mp = jQuery.meinPivot({
+		data: result1,
+		columns: ['year','month'],
+		rows: ['country','host'],
+		measures: ['users','clicks']
+	});
+	tmp = mp.getPivot();
+	console.log(JSON.stringify(tmp));
 });
 
 </script>
