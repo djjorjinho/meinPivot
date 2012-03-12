@@ -9,33 +9,32 @@
 </head>
 <body>
 
-<table class="google-visualization-table-table" cellspacing="0">
-<tbody>
-	<tr>
-		<td>ga:pagePath</td>
-		<td>ga:year</td>
-		<td>ga:month</td>
-		<td>ga:day</td>
-		<td>ga:pageviews</td>
-		<td>ga:uniquePageviews</td>
+<table class="pivot-table">
+	<tr class="pivot-table-headers">
+		<td class="pivot-table-column">ga:pagePath</td>
+		<td class="pivot-table-column">ga:year</td>
+		<td class="pivot-table-row">ga:month</td>
+		<td class="pivot-table-row">ga:day</td>
+		<td class="pivot-table-measure">ga:pageviews</td>
+		<td class="pivot-table-measure">ga:uniquePageviews</td>
 	</tr>
-	<tr>
-		<td>/cache.aspx</td>
+	<tr class="pivot-table-data">
+		<td>/cache</td>
 		<td>2012</td>
 		<td>03</td>
 		<td>10</td>
 		<td>1</td>
 		<td>1</td>
 	</tr>
-	<tr >
+	<tr class="pivot-table-data">
 		<td>/cpanel</td>
-		<td 2012</td>
+		<td>2012</td>
 		<td>03</td>
 		<td>03</td>
 		<td>2</td>
 		<td>2</td>
 	</tr>
-	<tr >
+	<tr class="pivot-table-data">
 		<td>/cpanel</td>
 		<td>2012</td>
 		<td>03</td>
@@ -43,7 +42,7 @@
 		<td>2</td>
 		<td>2</td>
 	</tr>
-	<tr>
+	<tr class="pivot-table-data">
 		<td>/cpanel</td>
 		<td>2012</td>
 		<td>03</td>
@@ -51,7 +50,7 @@
 		<td>1</td>
 		<td>1</td>
 	</tr>
-	<tr >
+	<tr class="pivot-table-data">
 		<td>/cpanel</td>
 		<td>2012</td>
 		<td>03</td>
@@ -59,7 +58,7 @@
 		<td>1</td>
 		<td>1</td>
 	</tr>
-	<tr >
+	<tr class="pivot-table-data">
 		<td>/cpanel/catalog</td>
 		<td>2012</td>
 		<td>03</td>
@@ -67,7 +66,7 @@
 		<td>5</td>
 		<td>5</td>
 	</tr>
-	<tr>
+	<tr class="pivot-table-data">
 		<td>/cpanel/catalog</td>
 		<td>2012</td>
 		<td>03</td>
@@ -75,42 +74,35 @@
 		<td>1</td>
 		<td>1</td>
 	</tr>
-	<tr>
-		<td>/cpanel/maincategory?menu_id=81</td>
+	<tr class="pivot-table-data">
+		<td>/cpanel/maincategory</td>
 		<td>2012</td>
 		<td>03</td>
 		<td>03</td>
 		<td>1</td>
 		<td>1</td>
 	</tr>
-	<tr >
-		<td>/cpanel/maincategory?menu_id=81</td>
+	<tr class="pivot-table-data">
+		<td>/cpanel/maincategory</td>
 		<td>2012</td>
 		<td>03</td>
 		<td>06</td>
 		<td>1</td>
 		<td>1</td>
 	</tr>
-	<tr>
-		<td>/cpanel/managecontent/edit/982?menu_id=80</td>
+	<tr class="pivot-table-data">
+		<td>/cpanel/managecontent/edit</td>
 		<td>2012</td>
 		<td>03</td>
 		<td>03</td>
 		<td>1</td>
 		<td>1</td>
 	</tr>
-</tbody>
 </table>
-
 
 <script type="text/javascript">
 jQuery(document).ready(function(){
-	try{
-		var mp = jQuery.meinPivot({},{});
-	}
-	catch(err){
-		console.log(err);
-	}
+	var mp = jQuery('.pivot-table').meinPivot({});
 });
 
 </script>
