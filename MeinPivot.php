@@ -231,7 +231,7 @@ class MeinPivot{
 		
     	$code .= 'return $out;';
 		
-		print($code);
+		//print($code);
 		
     	$newfunc = create_function('&$tmp,&$out,&$columns'
 									.',&$rows,&$measures,&$splits',$code);

@@ -10,7 +10,7 @@
 <body>
 
 <table class="pivot-table">
-	<tr class="pivot-table-headers">
+	<tr class="pivot-table-metadata">
 		<td class="pivot-table-column">ga:pagePath</td>
 		<td class="pivot-table-column">ga:year</td>
 		<td class="pivot-table-row">ga:month</td>
@@ -99,10 +99,16 @@
 		<td>1</td>
 	</tr>
 </table>
+<div id="container"></div>
 
 <script type="text/javascript">
+var mp;
 jQuery(document).ready(function(){
-	var mp = jQuery('.pivot-table').meinPivot({});
+	mp = jQuery('.pivot-table').meinPivot({
+		//destroyTable:true,
+		tableContainer:'#container'
+	});
+	console.log(mp.getPivot());
 });
 
 </script>
