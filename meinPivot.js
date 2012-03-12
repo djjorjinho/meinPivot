@@ -78,12 +78,41 @@ meinPivot.prototype = {
 		return self;
 	},
 	
-	generate: function(){
+	table: function(){
 		var self = this;
 		var pivoted = self.getPivot();
 		if(self.options.tableContainer=='')
-			return false; // TODO: throw exception
-		// TODO: make a HTML table
+			return pivoted; 
+
+		return self.simpleHtmlTable(pivoted);
+	},
+	
+	simpleHtmlTable : function(data){
+		var self = this;
+		var rows = self.options.rows;
+		out="";
+		out+="<table class='pivot-table-result'>";
+		    out+= "<thead>";
+		    for (var item1 in data[0]) {
+		        out+= "<td class='pivot-table-result-column'>"+item1+"</td>";
+		    }
+		    out+= "</thead>";
+		    for (var row in data) {
+		    	var cnt = rows.length;
+		        out+= "<tr>";
+		        for (var item2 in data[row]) {
+		        	var cls = cnt > 0
+								? 'pivot-table-result-row'
+								: 'pivot-table-result-value';
+		        	var val = data[row][item2]
+		        	val= (val==undefined) ? '': val;
+		            out+= "<td class='"+cls+"'>"+val+"</td>";
+		            cnt--;
+		        }
+		        out+= "</tr>";
+		    }
+		    out+= "</table>";
+		    jQuery(self.options.tableContainer).html(out);
 		return self;
 	},
 	
@@ -91,9 +120,9 @@ meinPivot.prototype = {
 		var self = this;
 		var options = self.options;
 		
-		var tmp,tmpCount,splits;
+		var tmp ={};
+		var splits = {};
 		var ref,sref;
-		tmp = tmpCount = splits = {};
 		
 		$.each(options.data,function(i,item){
 			

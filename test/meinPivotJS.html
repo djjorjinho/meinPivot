@@ -99,17 +99,17 @@
 		<td>1</td>
 	</tr>
 </table>
-<div id="container"></div>
+<div id="container1"></div>
+<div id="container2"></div>
 
 <script type="text/javascript">
 var mp;
 jQuery(document).ready(function(){
+	
 	mp = jQuery('.pivot-table').meinPivot({
-		//destroyTable:true,
-		tableContainer:'#container'
-	});
-	var tmp = mp.getPivot();
-	console.log(JSON.stringify(tmp));
+		destroyTable:true,
+		tableContainer:'#container1'
+	}).table();
 	
 	var result1 = [
 		    {'host' : 'host1', 'country' : 'fr', 'year' : 2010,
@@ -150,10 +150,9 @@ jQuery(document).ready(function(){
 		data: result1,
 		columns: ['year','month'],
 		rows: ['country','host'],
-		measures: ['users','clicks']
-	});
-	tmp = mp.getPivot();
-	console.log(JSON.stringify(tmp));
+		measures: ['users','clicks'],
+		tableContainer: '#container2'
+	}).table();
 });
 
 </script>
