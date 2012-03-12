@@ -1,17 +1,15 @@
 (function($){
 	
-	jQuery.fn.meinPivot = function(options) {	
-		this.config = jQuery.extend({
-			
-		}, options);
-		
-		this.init();
-	};
+var meinPivot = function(data,options){
+	console.log(data);
+};
 
-	jQuery.fn.meinPivot.prototype = {
-		init: function(){
-			console.log(this.config);
-		}
-	};
+meinPivot.prototype = {
+	
+};
 
-})(jQuery);
+$.meinPivot = function(data, options){
+	return new meinPivot(data,options);
+};
+
+}(jQuery));

@@ -113,11 +113,13 @@ class MeinPivot{
 		// setting splits array
     	$this->_splits = $splits;
 		
+		//print "splits: "; print_r($splits);
+		//print "tmp: "; print_r($tmp);
+		
 		// generate new resultset with pivoted rows/values
     	$this->_data = $this->build_output($tmp,$columns,$rows,$measures
 																	,$splits);
-		//print "splits: "; print_r($splits);
-		//print "tmp: "; print_r($tmp);
+		
     	return $this->_data;
     }
     
@@ -156,7 +158,7 @@ class MeinPivot{
     	
 		// generate dynamic code according to row count,
 		// metric count and column count
-    	$code ="";
+    	$code ="";$tab="\t";
 		
     	// begin row pivots
     	foreach(range(0,$rlen) as $idx)
@@ -168,16 +170,16 @@ class MeinPivot{
 			else
 			{
     			$i = $idx-1;
-    			$code .= 'foreach ($p'.$i.'Values '
+    			$code .= $tab.'foreach ($p'.$i.'Values '
 									.'as $p'.$idx.' => $p'.$idx.'Values){'."\n";
     		}
     	}
 		
     	// iteration array
-    	$code.= '$_out=array();'."\n";
+    	$code.= $tab.$tab.'$_out=array();'."\n";
     	foreach(range(0,$rlen) as $idx)
 		{
-    		$code.= '$_out[$rows['.$idx.']] = $p'.$idx.';'."\n";
+    		$code.= $tab.$tab.'$_out[$rows['.$idx.']] = $p'.$idx.';'."\n";
     	}
     	
     	// column elements concatenation
@@ -186,48 +188,50 @@ class MeinPivot{
 		{
     		if($idx==0)
 			{
-    			$code.='foreach (array_keys($splits) as $s'.$idx.') {'."\n";
+    			$code.= $tab.$tab.'foreach (array_keys($splits) as $s'.$idx.') {'."\n";
 
-    			$code.='$spl'.$idx.'=$splits[$s'.$idx.'];'."\n";
-    			$code.='$colValues = $p'.$rlen.'Values;'."\n";
+    			$code.= $tab.$tab.$tab.'$spl'.$idx.'=$splits[$s'.$idx.'];'."\n";
+    			$code.= $tab.$tab.$tab.'$colValues = $p'.$rlen.'Values;'."\n";
     			array_push($_aux, '$s'.$idx);
     		}
 			else
 			{
     			$i=$idx-1;
-    			$code.='foreach(array_keys($spl'.$i.') as $s'.$idx.'){'."\n";
-    			$code.='$spl'.$idx.'=$spl'.$i.'[$s'.$idx.'];'."\n";
+    			$code.= $tab.$tab.$tab.'foreach(array_keys($spl'.$i.') as $s'.$idx.'){'."\n";
+    			$code.= $tab.$tab.$tab.$tab.'$spl'.$idx.'=$spl'.$i.'[$s'.$idx.'];'."\n";
     			
     			array_push($_aux, '$s'.$idx);
     		}
     	}
     	
     	// measure concat
-    	$code.='foreach ($measures as $k) {'."\n";
+    	$code.= $tab.$tab.$tab.$tab.'foreach ($measures as $k) {'."\n";
     	$_arraux="";
     	if(!empty($_aux)) $_arraux = "[".implode("][",$_aux)."]";
-    	$code.='$value = (! isset($colValues'.$_arraux.'[$k])) '
+    	$code.= $tab.$tab.$tab.$tab.$tab.'$value = (! isset($colValues'.$_arraux.'[$k])) '
 					.'? null : $colValues'.$_arraux.'[$k];'."\n";
-    	$code.='$_out['.get_class($this).'::concat_fields('
+    	$code.= $tab.$tab.$tab.$tab.$tab.'$_out['.get_class($this).'::concat_fields('
 									.implode(',',$_aux).',$k)] = $value;'."\n";
-    	$code.='}'."\n";
+    	$code.= $tab.$tab.$tab.$tab.'}'."\n";
     	
     	// close column elements
     	foreach(range(0,$clen) as $idx)
 		{
-    		$code .='}'."\n";
+    		$code .= $tab.$tab.$tab.'}'."\n";
     	}
     	
     	// new array item
-    	$code.='$out[] = $_out;'."\n";
+    	$code.= $tab.$tab.'$out[] = $_out;'."\n";
     	
     	// end row pivots
     	foreach(range(0,$rlen) as $idx)
 		{
-    		$code .='}'."\n";
+    		$code .= $tab.'}'."\n";
     	}
 		
     	$code .= 'return $out;';
+		
+		print($code);
 		
     	$newfunc = create_function('&$tmp,&$out,&$columns'
 									.',&$rows,&$measures,&$splits',$code);

@@ -2,16 +2,117 @@
 <head>
 <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen">
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
 <script type="text/javascript" src="../meinPivot.js"></script>
 
 </head>
 <body>
 
+<table class="google-visualization-table-table" cellspacing="0">
+<tbody>
+	<tr>
+		<td>ga:pagePath</td>
+		<td>ga:year</td>
+		<td>ga:month</td>
+		<td>ga:day</td>
+		<td>ga:pageviews</td>
+		<td>ga:uniquePageviews</td>
+	</tr>
+	<tr>
+		<td>/cache.aspx</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>10</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr >
+		<td>/cpanel</td>
+		<td 2012</td>
+		<td>03</td>
+		<td>03</td>
+		<td>2</td>
+		<td>2</td>
+	</tr>
+	<tr >
+		<td>/cpanel</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>08</td>
+		<td>2</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>/cpanel</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>09</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr >
+		<td>/cpanel</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>11</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr >
+		<td>/cpanel/catalog</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>03</td>
+		<td>5</td>
+		<td>5</td>
+	</tr>
+	<tr>
+		<td>/cpanel/catalog</td>
+		<td>2012</td>
+		<td>03</td>
+		<td> 11</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>/cpanel/maincategory?menu_id=81</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>03</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr >
+		<td>/cpanel/maincategory?menu_id=81</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>06</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>/cpanel/managecontent/edit/982?menu_id=80</td>
+		<td>2012</td>
+		<td>03</td>
+		<td>03</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+</tbody>
+</table>
+
+
 <script type="text/javascript">
-	var mp = new jQuery.meinPivot();
-	
+jQuery(document).ready(function(){
+	try{
+		var mp = jQuery.meinPivot({},{});
+	}
+	catch(err){
+		console.log(err);
+	}
+});
+
 </script>
 </body>
-</hmtl>
+</html>

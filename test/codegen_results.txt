@@ -1,0 +1,104 @@
+/** 2x2x2 */
+foreach ($tmp as $p0 => $p0Values) {
+	foreach ($p0Values as $p1 => $p1Values){
+		$_out=array();
+		$_out[$rows[0]] = $p0;
+		$_out[$rows[1]] = $p1;
+		foreach (array_keys($splits) as $s0) {
+			$spl0=$splits[$s0];
+			$colValues = $p1Values;
+			foreach(array_keys($spl0) as $s1){
+				$spl1=$spl0[$s1];
+				foreach ($measures as $k) {
+					$value = (! isset($colValues[$s0][$s1][$k]))
+								? null
+								: $colValues[$s0][$s1][$k];
+					$_out[MeinPivot::concat_fields($s0,$s1,$k)] = $value;
+				}
+			}
+		}
+		$out[] = $_out;
+	}
+}
+return $out;
+
+/** 2x2x2 */
+foreach ($tmp as $p0 => $p0Values) {
+	foreach ($p0Values as $p1 => $p1Values){
+		$_out=array();
+		$_out[$rows[0]] = $p0;
+		$_out[$rows[1]] = $p1;
+		foreach (array_keys($splits) as $s0) {
+			$spl0=$splits[$s0];
+			$colValues = $p1Values;
+			foreach(array_keys($spl0) as $s1){
+				$spl1=$spl0[$s1];
+				foreach ($measures as $k) {
+					$value = (! isset($colValues[$s0][$s1][$k]))
+								? null
+								: $colValues[$s0][$s1][$k];
+					$_out[MeinPivot::concat_fields($s0,$s1,$k)] = $value;
+				}
+			}
+		}
+		$out[] = $_out;
+	}
+}
+return $out;
+
+/** 2x3x3 **/
+foreach ($tmp as $p0 => $p0Values) {
+	foreach ($p0Values as $p1 => $p1Values){
+		foreach ($p1Values as $p2 => $p2Values){
+			$_out=array();
+			$_out[$rows[0]] = $p0;
+			$_out[$rows[1]] = $p1;
+			$_out[$rows[2]] = $p2;
+			foreach (array_keys($splits) as $s0) {
+				$spl0=$splits[$s0];
+				$colValues = $p2Values;
+				foreach(array_keys($spl0) as $s1){
+					$spl1=$spl0[$s1];
+					foreach ($measures as $k) {
+						$value = (! isset($colValues[$s0][$s1][$k]))
+								? null
+								: $colValues[$s0][$s1][$k];
+						$_out[MeinPivot::concat_fields($s0,$s1,$k)] = $value;
+					}
+				}
+			}
+			$out[] = $_out;
+		}
+	}
+}
+return $out;
+
+/** 3x3x3 */
+foreach ($tmp as $p0 => $p0Values) {
+	foreach ($p0Values as $p1 => $p1Values){
+		foreach ($p1Values as $p2 => $p2Values){
+			$_out=array();
+			$_out[$rows[0]] = $p0;
+			$_out[$rows[1]] = $p1;
+			$_out[$rows[2]] = $p2;
+			foreach (array_keys($splits) as $s0) {
+				$spl0=$splits[$s0];
+				$colValues = $p2Values;
+				foreach(array_keys($spl0) as $s1){
+					$spl1=$spl0[$s1];
+					foreach(array_keys($spl1) as $s2){
+						$spl2=$spl1[$s2];
+						foreach ($measures as $k) {
+							$value = (! isset($colValues[$s0][$s1][$s2][$k]))
+										? null
+										: $colValues[$s0][$s1][$s2][$k];
+							$_out[MeinPivot::concat_fields($s0,$s1,$s2,$k)] = $value;
+						}
+					}
+				}
+			}
+			$out[] = $_out;
+		}
+	}
+}
+return $out;
