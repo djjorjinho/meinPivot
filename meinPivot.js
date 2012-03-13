@@ -1,4 +1,18 @@
-
+/**
+ * MeinPivot - generate Pivot tables with unlimited number of Pivoting fields.
+ * Javascript/jQuery version.
+ * 
+ * This class was inspired by the great gam-pivot php class made by
+ * Gonzalo Ayuso (gonzalo123), that can be found in GitHub:
+ * 
+ * https://github.com/gonzalo123/gam-pivot
+ * 
+ * The main purpose of making a new class was to make possible the pivoting of 
+ * columns to unlimited rows.
+ * 
+ * Website: https://github.com/djjorjinho/meinPivot
+ * License: BSD 2-Clause License
+ */
 (function($){
 
 /**
