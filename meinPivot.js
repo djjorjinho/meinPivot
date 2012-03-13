@@ -104,15 +104,66 @@ meinPivot.prototype = {
 	simpleHtmlTable : function(data){
 		var self = this;
 		var rows = self.options.rows;
+		var columns = self.options.columns;
+		var rlen = rows.length;
+		var clen = columns.length;
+		var mlen = self.options.measures.length;
+		var concat = self.options.concatString;
+		var regex = new RegExp(concat);
+		
 		out="";
 		out+="<table class='pivot-table-result'>";
 		    out+= "<thead>";
-		    for (var item1 in data[0]) {
-		        out+= "<td class='pivot-table-result-column'>"+item1+"</td>";
-		    }
-		    out+= "</thead>";
+			
+		    // headers
+			var dcnt = 0;
+			$.each(data[0],function(item,i){
+				if(!regex.test(item))
+					return 0;
+				dcnt = item.split(concat).length-1;
+				return -1;
+			});
+			
+			//var cnt = self.keys(data[0]).length-rlen;
+			var hcnt = 0;
+			
+			for(var idx=0; idx<dcnt; idx++){
+
+				out += "<tr>";
+
+				$.each(rows,function(r,row){
+					out += "<td></td>";
+				});
+				
+				$.each(data[0],function(item,i){
+
+					if(!regex.test(item))
+						return;
+					
+					var split = item.split(concat)[hcnt];
+					out += "<td class='pivot-table-result-header'>"
+							+split+"</td>";
+				});
+				
+				out += "</tr>";
+				hcnt++;
+			}
+			// bottom header
+			$.each(data[0],function(item,i){
+				if(!regex.test(item)){
+					out += "<td>"+item+"</td>";
+					return;
+				}
+				
+				var split = item.split(concat)[hcnt];
+					out += "<td class='pivot-table-result-header'>"
+							+split+"</td>";
+			});
+		    
+			out+= "</thead>";
+			
 		    for (var row in data) {
-		    	var cnt = rows.length;
+		    	var cnt = rlen;
 		        out+= "<tr>";
 		        for (var item2 in data[row]) {
 		        	var cls = cnt > 0
@@ -129,6 +180,15 @@ meinPivot.prototype = {
 		    jQuery(self.options.tableContainer).html(out);
 		return self;
 	},
+	
+	keys: function(obj){
+		var keys = [];
+		for(var key in obj){
+		   keys.push(key);
+		}
+		return keys;
+	 },
+
 	
 	getPivot: function(){
 		var self = this;
@@ -194,7 +254,7 @@ meinPivot.prototype = {
 			return options.funcCache[ckey]
 					.exec(out,columns,rows,measures,tmp,splits);
 		
-		var code = 'func = {exec:function(out,columns,rows,measures,tmp,splits){';
+		var code = 'func={exec:function(out,columns,rows,measures,tmp,splits){';
 		
 		// open rows
 		$.each(rows,function(r,row){
@@ -232,7 +292,8 @@ meinPivot.prototype = {
 		code += "var value;";
 		code += "try{ value = colValues"+arraux+"[measure] || '';}";
 		code += "catch(err){value='';};";
-		code += "_out["+_aux.join("+'"+concat+"'+")+"+'"+concat+"'+measure] = value;";
+		code += "_out["+_aux.join("+'"+concat+"'+")+"+'"+concat+"'+measure] "
+					+"= value;";
 		
 		// close measures
 		code += "});";
