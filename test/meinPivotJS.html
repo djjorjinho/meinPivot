@@ -6,15 +6,19 @@
 <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
 <script type="text/javascript" src="../meinPivot.js"></script>
 
+<style type="text/css">
+table {border:1px solid black;margin-bottom: 10px;}
+</style>
+
 </head>
 <body>
 
 <table class="pivot-table">
 	<tr class="pivot-table-metadata">
-		<td class="pivot-table-column">ga:pagePath</td>
-		<td class="pivot-table-column">ga:year</td>
-		<td class="pivot-table-row">ga:month</td>
-		<td class="pivot-table-row">ga:day</td>
+		<td class="pivot-table-row">ga:pagePath</td>
+		<td class="pivot-table-row">ga:year</td>
+		<td class="pivot-table-column">ga:month</td>
+		<td class="">ga:day</td>
 		<td class="pivot-table-measure">ga:pageviews</td>
 		<td class="pivot-table-measure">ga:uniquePageviews</td>
 	</tr>

@@ -165,7 +165,8 @@ meinPivot.prototype = {
 				// assigning values
 				ref[measure] = ref[measure] || 0;
 				
-				ref[measure] += parseFloat(item[measure]);
+				var mvalue = parseFloat(item[measure]);
+				ref[measure] += isNaN(mvalue) ? 0 : mvalue;
 				sref[measure] = measure;
 			});
 		});
