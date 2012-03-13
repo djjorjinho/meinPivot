@@ -144,7 +144,7 @@ class MeinPivot{
 		$out=array();
 		
 		// visit function memory cache
-		$ckey = md5(json_encode(array_merge($columns,$rows,$measures)));
+		$ckey = count($columns).':'.count($rows).':'.count($measures);
 		if(isset(self::$func_cache[$ckey]))
 		{
 			$newfunc = self::$func_cache[$ckey];
@@ -208,10 +208,12 @@ class MeinPivot{
     	$code.= $tab.$tab.$tab.$tab.'foreach ($measures as $k) {'."\n";
     	$_arraux="";
     	if(!empty($_aux)) $_arraux = "[".implode("][",$_aux)."]";
-    	$code.= $tab.$tab.$tab.$tab.$tab.'$value = (! isset($colValues'.$_arraux.'[$k])) '
-					.'? null : $colValues'.$_arraux.'[$k];'."\n";
-    	$code.= $tab.$tab.$tab.$tab.$tab.'$_out['.get_class($this).'::concat_fields('
-									.implode(',',$_aux).',$k)] = $value;'."\n";
+    	$code.= $tab.$tab.$tab.$tab.$tab
+					.'$value = (! isset($colValues'.$_arraux.'[$k])) '
+						.'? null : $colValues'.$_arraux.'[$k];'."\n";
+    	$code.= $tab.$tab.$tab.$tab.$tab
+					.'$_out['.implode(".' | '.",$_aux).".' | '.".'$k] = $value;'."\n";
+					
     	$code.= $tab.$tab.$tab.$tab.'}'."\n";
     	
     	// close column elements

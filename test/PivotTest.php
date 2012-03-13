@@ -71,6 +71,7 @@ class MeinPivotTest extends PHPUnit_TestCase{
 		
 		if(!$this->supress_out){
 			print("----------------\n");
+			print("cache key: ".count($columns).':'.count($rows).':'.count($measures)."\n");
 			print('columns: '.print_r($columns,true));
 			print('rows: '.print_r($rows,true));
 			print("output1: ".print_r($out,true));
@@ -78,7 +79,26 @@ class MeinPivotTest extends PHPUnit_TestCase{
 		$this->assertTrue(is_array($out));
     }
 	
-	function atestPivot2(){
+	function testPivot2(){
+		
+		$columns = array('country','host');
+    	$rows = array('year','month');
+    	$measures = array('users','clicks');
+    	
+    	$pivot = new MeinPivot($this->result1,$columns,$rows,$measures);
+		$out = $pivot->get();
+		
+		if(!$this->supress_out){
+			print("----------------\n");
+			print("cache key: ".count($columns).':'.count($rows).':'.count($measures)."\n");
+			print('columns: '.print_r($columns,true));
+			print('rows: '.print_r($rows,true));
+			print("output1: ".print_r($out,true));
+		}
+		$this->assertTrue(is_array($out));
+    }
+	
+	function testPivot3(){
 		
     	$columns = array('year','month','host');
     	$rows = array('country','host','Location');
@@ -89,6 +109,7 @@ class MeinPivotTest extends PHPUnit_TestCase{
 		
 		if(!$this->supress_out){
 			print("----------------\n");
+			print("cache key: ".count($columns).':'.count($rows).':'.count($measures)."\n");
 			print('columns: '.print_r($columns,true));
 			print('rows: '.print_r($rows,true));
 			print("output2: ".print_r($out,true));
@@ -96,7 +117,7 @@ class MeinPivotTest extends PHPUnit_TestCase{
 		$this->assertTrue(is_array($out));
     }
 	
-	function atestPivot3(){
+	function testPivot4(){
 		
     	$columns = array('Age','Gender');
     	$rows = array('BlogName','Location');
@@ -107,6 +128,7 @@ class MeinPivotTest extends PHPUnit_TestCase{
 		
 		if(!$this->supress_out){
 			print("----------------\n");
+			print("cache key: ".count($columns).':'.count($rows).':'.count($measures)."\n");
 			print('columns: '.print_r($columns,true));
 			print('rows: '.print_r($rows,true));
 			print("output3: ".print_r($out,true));
