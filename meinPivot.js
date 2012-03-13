@@ -165,7 +165,7 @@ meinPivot.prototype = {
 				// assigning values
 				ref[measure] = ref[measure] || 0;
 				
-				ref[measure] += item[measure];
+				ref[measure] += parseFloat(item[measure]);
 				sref[measure] = measure;
 			});
 		});
@@ -189,7 +189,6 @@ meinPivot.prototype = {
 		var out = [];
 		var func;
 		
-		// TODO: check the function cache
 		if(options.funcCache[ckey])
 			return options.funcCache[ckey]
 					.exec(out,columns,rows,measures,tmp,splits);
