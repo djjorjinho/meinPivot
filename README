@@ -1,4 +1,5 @@
 MeinPivot - generate Pivot tables with unlimited number of Pivoting fields.
+Available in PHP and jQuery flavors!
 
 This class was inspired by the great gam-pivot php class made by Gonzalo Ayuso (gonzalo123), that can be found in GitHub:
 
@@ -10,7 +11,7 @@ License: BSD 2-Clause License
 
 
 
-Usage:
+Usage in PHP:
 
 """
 <?php
@@ -59,3 +60,25 @@ output: Array
 
 )
 """
+
+Usage in jQuery:
+
+"""
+// Existing table:
+var mp = jQuery('.pivot-table').meinPivot({
+		destroyTable:false,
+		tableContainer:'#container1'
+	}).table();
+
+// or with JSON data:
+
+var mp = jQuery.meinPivot({
+		data: result1,
+		columns: ['year','month'],
+		rows: ['country','host'],
+		measures: ['users','clicks'],
+		tableContainer: '#container2'
+	}).table();
+"""
+
+Easy as pie!
